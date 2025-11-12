@@ -37,6 +37,7 @@ export default function Login() {
                 if (data.status === 'ok') {
 
                    localStorage.setItem('user', JSON.stringify({ 
+                    id: data.id,
                      nombre: data.nombre, 
                     apellidos: data.apellidos,
                      correo: data.correo,
