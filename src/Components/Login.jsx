@@ -35,6 +35,18 @@ export default function Login() {
             .then(res => res.json()) 
             .then(data => {
                 if (data.status === 'ok') {
+
+                   localStorage.setItem('user', JSON.stringify({ 
+                     nombre: data.nombre, 
+                    apellidos: data.apellidos,
+                     correo: data.correo,
+                     dni: data.dni,
+                     direccion: data.direccion,
+                     telefono: data.telefono,
+                 }));
+                    console.log('Respuesta del login:', data);
+
+
                     MySwal.fire({
                         title: '¡Éxito!',
                         text: 'Has iniciado sesión correctamente',
@@ -47,10 +59,10 @@ export default function Login() {
                                 navigate('/admin');
                                 break;
                             case 'usuario':
-                                navigate('/usuario');
+                                navigate('/usuariopage');
                                 break;
                             default:
-                                navigate('/usuario'); 
+                                navigate('/usuariopage'); 
                                 break;
                         }
                     });
