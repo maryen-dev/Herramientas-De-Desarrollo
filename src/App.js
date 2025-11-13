@@ -2,12 +2,13 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Register from './Components/Register';
 import Login from './Components/Login';
-import AdminPage from './AdminPage';
+import AdminPage from './Components/AdminPage';
 import UsuarioPage from './UsuarioPage';
 import TermAndGrams from './Components/TermAndGrams';
 import ProtectedRoute from './Components/ProtectedRoutes';
 import Header from './Components/Header';
 import Reclamo from './Components/Reclamo';
+import AdminReclamos from './Components/AdminReclamos';
 function App() {
   return (
     <Routes>
@@ -20,6 +21,7 @@ function App() {
         </ProtectedRoute>
       } />
       <Route path="/admin" element={<AdminPage />} />
+      <Route path="/admin/reclamos" element={<AdminReclamos />} />
       <Route path="/terminos" element={
         <ProtectedRoute>
           <TermAndGrams />
@@ -31,6 +33,7 @@ function App() {
             <Reclamo />
           </ProtectedRoute>}/>
     </Routes>
+    
   );
 }
 
