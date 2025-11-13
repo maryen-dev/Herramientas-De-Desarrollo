@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './Header';
-import './TermAndGrams.css';
+import '../Estilo/TermAndGrams.css';
 
 export default function TermsAndGrams() {
   return (

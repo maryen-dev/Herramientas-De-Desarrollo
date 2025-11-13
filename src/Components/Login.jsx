@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
-import './Login.css';
+import '../Estilo/Login.css';
 import fondo from '../img/fondo.jpg';
 import logo from '../img/logo.jpg';
 
@@ -56,7 +56,7 @@ export default function Login() {
                     }).then(() => {
                        
                         switch (data.rol) {
-                            case 'administrador':
+                            case 'admin':
                                 navigate('/admin');
                                 break;
                             case 'usuario':

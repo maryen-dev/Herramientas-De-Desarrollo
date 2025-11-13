@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
-import './Reclamo.css';
+import '../Estilo/Reclamo.css';
 
 export default function Reclamo() {
   const [formData, setFormData] = useState({
