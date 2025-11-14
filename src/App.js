@@ -9,6 +9,9 @@ import ProtectedRoute from './Components/ProtectedRoutes';
 import Header from './Components/Header';
 import Reclamo from './Components/Reclamo';
 import AdminReclamos from './Components/AdminReclamos';
+import VendedorPage from './Components/AdminProducts';
+
+
 function App() {
   return (
     <Routes>
@@ -20,8 +23,15 @@ function App() {
           <UsuarioPage />
         </ProtectedRoute>
       } />
-      <Route path="/admin" element={<AdminPage />} />
-      <Route path="/admin/reclamos" element={<AdminReclamos />} />
+      <Route path="/admin" element={ <ProtectedRoute>
+          <AdminPage />
+        </ProtectedRoute>} />
+
+      <Route path="/admin/reclamos" element={<ProtectedRoute>
+          <AdminReclamos />
+        </ProtectedRoute>} />
+
+      
       <Route path="/terminos" element={
         <ProtectedRoute>
           <TermAndGrams />
@@ -32,7 +42,23 @@ function App() {
           <ProtectedRoute>
             <Reclamo />
           </ProtectedRoute>}/>
+
+            <Route
+  path="/admin/productos"
+  element={
+    <ProtectedRoute>
+      <VendedorPage /> 
+    </ProtectedRoute>
+  }
+/>
+
+
+     
+        
+
     </Routes>
+
+     
     
   );
 }

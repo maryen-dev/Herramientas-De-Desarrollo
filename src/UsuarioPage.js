@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PagPrincipal from './img/PagPrincipal.png';
 import Header from './Components/Header';
+import ProductList from './Components/ProductList';
+
 
 
 function UsuarioPage() {
@@ -23,6 +25,10 @@ function UsuarioPage() {
           }}
         />
       </div>
+       <div>
+            
+            <ProductList />
+        </div>
     </div>
   );
 }
