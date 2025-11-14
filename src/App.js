@@ -10,6 +10,7 @@ import Header from './Components/Header';
 import Reclamo from './Components/Reclamo';
 import AdminReclamos from './Components/AdminReclamos';
 import VendedorPage from './Components/AdminProducts';
+import AdminUser from './Components/AdminUser';
 
 
 function App() {
@@ -42,6 +43,13 @@ function App() {
           <ProtectedRoute>
             <Reclamo />
           </ProtectedRoute>}/>
+
+          <Route
+        path="/admin/usuarios" element={
+          <ProtectedRoute>
+            <AdminUser />
+          </ProtectedRoute>}/>
+
 
             <Route
   path="/admin/productos"

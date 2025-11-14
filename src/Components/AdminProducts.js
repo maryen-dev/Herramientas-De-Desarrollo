@@ -96,7 +96,15 @@ function ProductPage() {
           Nuevo Producto
         </button>
 
-       
+        <button
+          className="btn btn-success"
+          onClick={() => {
+            setShowList(true);
+            setShowForm(false);
+          }}
+        >
+          Mis productos
+        </button>
       </div>
 
       {showForm && <ProductForm onAdd={handleAddProduct} />}
