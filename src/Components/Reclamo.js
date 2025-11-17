@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
+import Swal from 'sweetalert2';
 import '../Estilo/Reclamo.css';
 
 export default function Reclamo() {
@@ -35,47 +36,69 @@ export default function Reclamo() {
     });
   };
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  if (!formData.aceptaTerminos) {
-    alert('Debe aceptar los términos y condiciones antes de enviar.');
-    return;
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  const user = JSON.parse(localStorage.getItem('user'));
-  if (!user || !user.id) {
-    alert('Usuario no autenticado.');
-    return;
-  }
+    if (!formData.aceptaTerminos) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Aviso',
+        text: 'Debe aceptar los términos y condiciones antes de enviar.'
+      });
+      return;
+    }
 
-  const nuevoReclamo = {
-    fechaPedido: formData.fechaPedido,
-    motivoReclamo: formData.motivo,
-    detalle: formData.detalle,
-    usuario: { id: user.id }
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user || !user.id) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Usuario no autenticado.'
+      });
+      return;
+    }
+
+    const nuevoReclamo = {
+      fechaPedido: formData.fechaPedido,
+      motivoReclamo: formData.motivo,
+      detalle: formData.detalle,
+      usuario: { id: user.id }
+    };
+
+    console.log("Reclamo a enviar:", nuevoReclamo);
+
+    fetch('http://localhost:8080/reclamos/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(nuevoReclamo),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error('Error al enviar el reclamo');
+        return res.json();
+      })
+      .then(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Reclamo enviado',
+          text: 'Tu reclamo fue enviado correctamente.'
+        });
+
+        setFormData({
+          ...formData,
+          fechaPedido: '',
+          motivo: '',
+          detalle: '',
+          aceptaTerminos: false
+        });
+      })
+      .catch((err) =>
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudo enviar el reclamo: ' + err.message
+        })
+      );
   };
-console.log("Reclamo a enviar:", nuevoReclamo);
-fetch('http://localhost:8080/reclamos/save', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(nuevoReclamo),
-})
-  .then((res) => {
-    if (!res.ok) throw new Error('Error al enviar el reclamo');
-    return res.json();
-  })
-  .then(() => {
-    alert('✅ Reclamo enviado correctamente');
-    setFormData({
-      ...formData,
-      fechaPedido: '',
-      motivo: '',
-      detalle: '',
-      aceptaTerminos: false
-    });
-  })
-  .catch((err) => alert('❌ No se pudo enviar el reclamo: ' + err.message));
-};
 
   return (
     <>
@@ -151,17 +174,19 @@ fetch('http://localhost:8080/reclamos/save', {
                 />
               </div>
             </div>
+
             <div className="terminos">
-  <input
-    type="checkbox"
-    name="aceptaTerminos"
-    checked={formData.aceptaTerminos}
-    onChange={handleChange}
-  />
-  <label>
-    Acepto los <a href="/terminos" target="_blank" rel="noopener noreferrer">términos y condiciones</a>
-  </label>
-</div>
+              <input
+                type="checkbox"
+                name="aceptaTerminos"
+                checked={formData.aceptaTerminos}
+                onChange={handleChange}
+              />
+              <label>
+                Acepto los <a href="/terminos" target="_blank" rel="noopener noreferrer">términos y condiciones</a>
+              </label>
+            </div>
+
             <button
               type="submit"
               className="btn-enviar"
