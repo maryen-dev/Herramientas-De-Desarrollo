@@ -79,7 +79,7 @@ input:focus {
 }
 
 .btn-login {
-    background-color: #00ff73;
+    background-color: #ff00d4;
     color: white;
     font-weight: bold;
     border: none;
@@ -90,7 +90,7 @@ input:focus {
 }
 
 .btn-login:hover {
-    background-color: #00ff88;
+    background-color: #c300ff;
 }
 
 .link {
