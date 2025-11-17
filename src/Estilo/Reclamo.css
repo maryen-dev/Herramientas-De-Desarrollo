@@ -118,8 +118,57 @@
   background-color: #6d28d9;
 }
 
+/* --- RESPONSIVE --- */
+
 @media (max-width: 768px) {
   .grid-2 {
     grid-template-columns: 1fr;
+    gap: 15px;
   }
+
+  .reclamo-container {
+    width: 95%;
+    padding: 20px;
+    margin: 20px auto;
+  }
+  
+  .reclamo-form {
+    gap: 20px; 
+  }
+
+  .reclamo-form section {
+    padding: 15px;
+  }
+
+  .terminos {
+    flex-direction: row; 
+    flex-wrap: wrap; 
+    font-size: 0.9em;
+  }
+  
+  .terminos label {
+    display: inline;
+    margin-right: 5px;
+  }
+  
+  .btn-enviar {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+    
+    .reclamo-container {
+        padding: 15px;
+    }
+    
+    .reclamo-form h3 {
+        font-size: 1.2rem;
+    }
+    
+    .reclamo-form input,
+    .reclamo-form select,
+    .reclamo-form textarea {
+        font-size: 14px;
+    }
 }

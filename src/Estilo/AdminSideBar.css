@@ -8,6 +8,8 @@
   justify-content: space-between;
   padding: 20px;
   box-sizing: border-box;
+  z-index: 1000;
+  transition: transform 0.3s ease-in-out;
 }
 
 .admin-logo {
@@ -58,4 +60,55 @@
 
 .admin-logout button:hover {
   background: #c026d3;
+}
+
+@media (max-width: 768px) {
+    
+    .admin-sidebar {
+        width: 250px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translateX(-250px);
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    }
+    
+    .admin-sidebar.sidebar-open {
+        transform: translateX(0);
+    }
+
+    .admin-logo, .admin-user {
+        margin-bottom: 20px;
+        font-size: 0.9em;
+    }
+
+    .admin-nav {
+        flex-grow: 1;
+    }
+
+    .admin-nav button, .admin-logout button {
+        padding: 12px;
+        font-size: 1em;
+        white-space: normal;
+    }
+    
+    
+    .app-content {
+        margin-left: 0;
+        padding-top: 50px;
+    }
+
+    .menu-toggle {
+        display: block;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 1001; 
+        padding: 10px;
+        background: #db678e;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
 }

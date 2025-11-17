@@ -45,3 +45,74 @@
 .swal2-select {
   font-size: 16px;
 }
+
+/* --- RESPONSIVE --- */
+@media screen and (max-width: 768px) {
+  .reclamos-table th, 
+  .reclamos-table td {
+    font-size: 0.9em; 
+    padding: 10px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  
+  .reclamos-table {
+    border: 0;
+  }
+  
+  .reclamos-table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  
+  .reclamos-table tr {
+    border-bottom: 3px solid #db678e;
+    display: block;
+    margin-bottom: .625em;
+    background-color: #fff;
+  }
+  
+  .reclamos-table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    text-align: right;
+    font-size: 0.9em; 
+    padding-left: 50%; 
+    position: relative;
+    border-top: none; 
+    text-align: left;
+  }
+  
+  .reclamos-table td::before {
+    position: absolute;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    content: attr(data-label);
+    font-weight: bold;
+    text-align: right;
+    color: #555;
+  }
+
+  .reclamos-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  .reclamos-table tr:hover {
+    background-color: #f1d3e0;
+  }
+
+  .reclamos-table td .btn-acciones {
+    width: 100%;
+    margin: 5px 0;
+    font-size: 0.9em; 
+  }
+}

@@ -1,65 +1,166 @@
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: white; 
-  border: 2px solid black; 
-  padding: 10px 30px;
-  font-family: 'Poppins', sans-serif;
-  box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white; 
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 30px;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+    z-index: 990; 
+    position: sticky;
+    top: 0;
 }
 
 .header-left {
-  display: flex;
-  align-items: center;
-  gap: 25px;
+    display: flex;
+    align-items: center;
+    gap: 30px; 
 }
 
 .header-logo h2 {
-  color: #000;
-  font-weight: 600;
-  margin: 0;
-}
-
-.user-name {
-  font-weight: 500;
-  color: #333;
+    color: #040F2E;
+    font-weight: 600;
+    margin: 0;
+    font-size: 1.5rem;
+    font-family: 'serif', Georgia, Times, serif; 
 }
 
 .header-nav {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+    display: flex;
+    align-items: center;
+    gap: 25px; 
+    font-weight: 500;
 }
 
 .header-nav a {
-  color: #000;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s;
+    color: #040F2E;
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent; 
+    transition: border-color 0.3s, color 0.2s;
+    font-size: 1em;
+    white-space: nowrap; 
 }
 
 .header-nav a:hover {
-  color: #b89146; 
+    color: #040F2E; 
+    border-color: #040F2E; 
 }
 
+/* --- Usuario y Botón --- */
 .header-right {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+}
+
+
+.user-name {
+    font-weight: 500;
+    color: #040F2E; 
+    white-space: nowrap; 
+    font-size: 1em;
+    order: 1; 
 }
 
 .logout-btn {
-  background-color: #000;
-  color: white;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s;
+    background-color: #997C71; 
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    order: 2; 
 }
 
 .logout-btn:hover {
-  background-color: #b89146; 
-  color: #000;
+    background-color: #7b635c; 
+    color: white;
+}
+
+/* --- ESTILOS RESPONSIVE --- */
+
+@media (max-width: 850px) {
+    .header {
+        padding: 10px 20px;
+    }
+    
+    .header-logo h2 {
+        font-size: 1.3rem;
+    }
+    
+    .header-nav a {
+        font-size: 0.9em;
+        white-space: normal; 
+    }
+
+    .header-left {
+        gap: 15px; 
+    }
+    
+    .user-name {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 600px) {
+    
+    .header {
+        flex-wrap: wrap; 
+        justify-content: flex-start;
+        padding: 10px;
+        min-height: 60px; 
+    }
+    
+    .header-left {
+        width: auto; 
+        gap: 10px;
+        margin-bottom: 5px;
+        justify-content: flex-start;
+        order: 1; 
+    }
+    
+    .header-right {
+        order: 2; 
+        margin-left: auto;
+        width: auto; 
+        gap: 8px;
+    }
+
+    .header-nav {
+        width: 100%;
+        order: 3; 
+        flex-direction: column; 
+        align-items: flex-start;
+        gap: 0; 
+        padding-top: 5px;
+        border-top: 1px solid #e5e7eb; 
+    }
+
+    .header-nav a {
+        width: 100%; 
+        padding: 10px 0; 
+        white-space: normal; 
+        font-size: 0.95em;
+        border-bottom: none; 
+    }
+
+    .header-nav a:hover {
+        border-color: transparent; 
+        color: #997C71; 
+    }
+
+    .logout-btn {
+        padding: 6px 10px;
+        font-size: 0.9em;
+    }
+    
+    .user-name {
+        font-size: 0.85em;
+        font-weight: normal;
+        color: #333;
+    }
 }

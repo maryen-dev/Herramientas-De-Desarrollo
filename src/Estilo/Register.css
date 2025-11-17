@@ -101,3 +101,45 @@ select:focus {
 .link:hover {
   color: #c24b83;
 }
+
+/* --- RESPONSIVE STYLES --- */
+
+@media (max-width: 480px) {
+  
+  .register-background {
+    padding: 10px;
+    align-items: flex-start;
+  }
+  
+  .register-container {
+    padding: 1.5rem;
+    max-width: 95%; 
+    margin-top: 40px; 
+  }
+  
+  .logo {
+    width: 120px;
+    height: 70px;
+  }
+  
+  input, select {
+    padding: 0.6rem 0.7rem;
+    font-size: 0.95rem;
+  }
+  
+  .btn-register {
+    padding: 0.65rem;
+    font-size: 1rem;
+  }
+  
+  .error {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-height: 700px) and (max-width: 768px) {
+    .register-background {
+        align-items: flex-start;
+        padding-top: 20px;
+    }
+}
