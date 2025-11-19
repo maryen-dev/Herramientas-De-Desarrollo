@@ -354,12 +354,282 @@ Ayuda a planificar, priorizar y hacer seguimiento del flujo de trabajo.
 
 ---
 
-### Estructura del trabajo
+# Estructura del trabajo
+
 ![Estructura](./screenshots/EstructuraProy.png)
 
 ---
 
-### 🖼️ Capturas de Pantalla
+# 🛠️ Gestión de Incidencias (Issues)
+
+La gestión de incidencias en GitHub permite organizar, reportar y resolver problemas o mejoras del proyecto.  
+Cada **Issue** puede representar:
+
+- Un bug detectado  
+- Una nueva funcionalidad  
+- Una tarea pendiente  
+- Una mejora en el sistema  
+- Documentación por actualizar  
+
+Esto ayuda a mantener el proyecto ordenado y al equipo alineado sobre qué debe hacerse y quién es responsable.
+
+## 🔖 Labels utilizados
+
+#### 🟥 `hotfix`
+Se usa para identificar **errores urgentes** que deben corregirse de inmediato.  
+Normalmente se aplica cuando:
+
+- El fallo afecta funcionalidades críticas  
+- Se necesita un parche rápido  
+- Bloquea directamente el uso del sistema  
+
+Un *hotfix* generalmente se resuelve en su propia rama y se integra cuanto antes.
+
+#### 🔥 `critical`
+Marca incidencias con **impacto severo** en el funcionamiento del sistema.  
+Se aplica cuando:
+
+- La aplicación deja de funcionar  
+- Hay vulnerabilidades graves  
+- El error afecta datos o procesos esenciales  
+- Se detiene completamente el funcionamiento normal  
+
+Estas incidencias tienen prioridad máxima.
+
+#### ✨ `enhancement`
+Se usa para **mejoras o nuevas funcionalidades** que no son críticas.  
+Por ejemplo:
+
+- Agregar un nuevo filtro en el catálogo  
+- Mejorar la experiencia de usuario  
+- Optimizar tiempos de carga  
+
+#### 🐞 `bug`
+Indica **un error en el sistema** que debe solucionarse.  
+Puede ser de baja, media o alta prioridad según el impacto.
+
+#### 📚 `documentation`
+Se aplica a incidencias relacionadas con **documentación del proyecto**:  
+
+- README.md  
+- Guías de instalación  
+- Comentarios de código  
+
+
+## 📝 Draft Pull Request
+
+Un **Draft Pull Request** es un Pull Request en estado de borrador.  
+Se utiliza cuando:
+
+- El cambio aún no está terminado  
+- Solo se quiere mostrar un avance
+- Se necesita feedback temprano del equipo  
+- No está listo para combinarse (merge)  
+
+Cuando el código está completo, se cambia el estado a **“Ready for review”**.
+
+
+---
+
+# ⭐ Integración Continua (CI)
+
+ La **Integración Continua (CI)** es una práctica donde los miembros del equipo suben sus cambios al repositorio y automáticamente se ejecutan procesos que verifican que el código funciona correctamente.
+
+## Procesos automáticos del CI
+
+- **Compilación del proyecto**
+- **Ejecución de pruebas**
+- **Análisis de calidad del código**
+- **Validación de dependencias**
+- **Detección temprana de errores e incompatibilidades**
+
+El objetivo es evitar problemas cuando varias personas trabajan en el mismo proyecto y suben cambios sin coordinación.
+
+## 1️⃣ Configuración del Workflow (`ci.yml`)
+
+El workflow está definido en el archivo **`ci.yml`**, que se ejecuta automáticamente cuando hay cambios en la rama **`main`**.
+
+### El flujo incluye:
+
+1. Checkout del repositorio  
+2. Configuración de Node.js  
+3. Instalación de dependencias  
+4. Ejecución de pruebas automatizadas  
+5. Reporte del estado final (éxito o error)
+
+![Pipeline](./screenshots/Pipeline.png)
+
+Este pipeline garantiza que la rama principal siempre tenga una versión estable.
+
+## 2️⃣ Trigger del CI: ¿Por qué se ejecuta en `main`?
+
+El CI se ejecuta solo cuando hay actualizaciones en `main`.
+
+**Razones:**
+
+- Reduce ejecuciones innecesarias
+- Solo prueba código ya revisado
+- Mantiene `main` siempre estable
+- Evita ruido en los pipelines
+
+Cada actualización a `main` activa automáticamente `ci.yml`.
+
+![triggerCI](./screenshots/triggerCI.png)
+
+
+## 3️⃣ Qué valida nuestro CI
+
+El CI ejecuta pruebas unitarias con ***Jest*** enfocadas en la lógica de reclamos dentro del Workflow, validando 4 estados:
+
+- **Pendiente**
+- **En proceso**
+- **Resuelto**
+- **Cancelado**
+
+Se crearon dos carpetas de pruebas enfocadas en reclamos.
+
+![carppruebas](./screenshots/carppruebas.png)
+
+El test que se realizo fue en base a 4 estados del reclamo.
+
+![testReclamo](./screenshots/testReclamo.png)
+
+Esta es la función del segundo archivo que se encuentra en la carpeta Utils.
+
+![funcionUtils](./screenshots/funcionUtils.png)
+
+### El CI verifica:
+
+- Transiciones correctas entre estados  
+- Manipulación adecuada de datos  
+
+Si una prueba falla:
+
+- ❌ El flujo se detiene  
+- ❌ Marca la ejecución en rojo  
+- ❌ Indica dónde ocurrió el error  
+
+Esto evita que errores lleguen a producción.
+
+## 4️⃣ Interpretación en GitHub Actions
+
+En la pestaña **Actions** se puede ver el estado de cada ejecución:
+
+- ✔️ **Verde:** todas las pruebas pasaron  
+- ❌ **Rojo:** error en pruebas o flujo  
+
+Aquí también se visualizan los logs y resultados de los tests.
+
+![resultActions](./screenshots/resultActions.png)
+
+## 5️⃣ Beneficios del CI en el equipo
+
+- Detección temprana de errores  
+- Menor riesgo de romper funcionalidades  
+- Ahorro de tiempo en revisiones  
+- Seguridad antes del despliegue (CD)  
+- Estabilidad continua en `main`  
+- Mejor coordinación entre integrantes  
+
+
+## 6️⃣ Relación del CI con el CD
+
+El proceso completo funciona así:
+
+1. **CI valida** que el código en `main` sea estable.  
+2. Si todo está correcto, continúa el **CD**.  
+3. Render despliega automáticamente cuando se hace **merge** a `main`.
+
+**Resumen:**  
+👉 CI = calidad  
+👉 CD = entrega automática
+
+
+---
+
+# 🛠️ Despliegue Continuo (CD)
+
+![Status](https://img.shields.io/badge/Status-Production-success)
+![Platform](https://img.shields.io/badge/Platform-Render-blueviolet)
+![Deploy](https://img.shields.io/badge/Auto--Deploy-Enabled-brightgreen)
+
+Es una práctica donde el despliegue de una aplicación sucede **automáticamente** cada vez que el código es actualizado y aprobado en el repositorio.
+* No se hacen despliegues manuales.
+* Cada cambio confirmado en la rama principal se **envía directamente a producción**.
+* El servidor o plataforma ejecuta por sí mismo los pasos necesarios para actualizar la aplicación.
+
+### 🔖 Implementación
+
+**Plataforma:** Render (Static Site)
+
+**Repositorio conectado:**
+- GitHub → Render
+- Rama de despliegue: `main`
+
+**Configuración de Build:**
+```bash
+npm install && npm run build
+```
+
+- **Build Command:** `npm install && npm run build`
+- **Publish Directory:** `build` (carpeta con archivos compilados)
+
+**URL de producción:** https://herramientas-de-desarrollo.onrender.com
+
+### 📸 Configuración en Render
+
+#### 1. Creación del servicio estático
+![Configuración inicial](./screenshots/render1.jpeg)
+*Se selecciona "Static Site", se conecta el repositorio y se elige la rama `main`*
+
+#### 2. Comandos de construcción
+![Build settings](./screenshots/render2.jpeg)
+*Se configuran los comandos para instalar dependencias y generar el build*
+
+#### 3. Deploy Hook (automatización)
+![Deploy Hook](./screenshots/render3.jpeg)
+*Webhook configurado en GitHub para despliegues automáticos*
+
+### 🔄 Flujo de Despliegue Automático
+
+> [!NOTE]
+> Este proceso es completamente automático y toma aproximadamente 2-3 minutos.
+```diff
++ 1. Desarrollador hace push a la rama main
++               ↓
++ 2. GitHub detecta el cambio
++               ↓
++ 3. Se activa el Deploy Hook (webhook)
++               ↓
++ 4. Render recibe la notificación automáticamente
++               ↓
++ 5. Render ejecuta: npm install && npm run build
++               ↓
++ 6. Los archivos de la carpeta /build se publican
++               ↓
++ 7. Aplicación actualizada en producción
+```
+
+### ⚙️ Secretos y Variables de Entorno
+
+> [!WARNING]
+> Nunca expongas públicamente los Deploy Hooks
+
+En GitHub se configuró el secret:
+- `RENDER_DEPLOY_HOOK_URL`: URL del webhook para activar despliegues
+
+![GitHub Secrets](./screenshots/render4.jpeg)
+ 
+### ✅ Ventajas de este enfoque
+
+- **Rapidez:** Los cambios llegan a producción en minutos
+- **Automatización:** No hay intervención manual
+- **Consistencia:** Mismo proceso en cada despliegue
+- **Rastreabilidad:** Cada deploy está asociado a un commit específico
+
+---
+
+# 🖼️ Capturas de Pantalla
 
 ### 🏠 Pantalla Principal
 ![Index](./screenshots/paginaprincipal.png)
