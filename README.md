@@ -479,7 +479,7 @@ Cada actualización a `main` activa automáticamente `ci.yml`.
 
 ## 3️⃣ Qué valida nuestro CI
 
-El CI ejecuta pruebas unitarias enfocadas en la lógica de reclamos, validando 4 estados:
+El CI ejecuta pruebas unitarias con ***Jest*** enfocadas en la lógica de reclamos dentro del Workflow, validando 4 estados:
 
 - **Pendiente**
 - **En proceso**
