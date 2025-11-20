@@ -419,6 +419,9 @@ Se aplica a incidencias relacionadas con **documentación del proyecto**:
 ## 📝 Draft Pull Request
 
 Un **Draft Pull Request** es un Pull Request en estado de borrador.  
+
+![convertdraff](./screenshots/convertdraff.png)
+
 Se utiliza cuando:
 
 - El cambio aún no está terminado  
@@ -428,6 +431,7 @@ Se utiliza cuando:
 
 Cuando el código está completo, se cambia el estado a **“Ready for review”**.
 
+![draftpullrq](./screenshots/draftpullrq.png)
 
 ---
 
