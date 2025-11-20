@@ -77,7 +77,7 @@ select:focus {
 }
 
 .btn-register {
-  background-color: #00ff37;
+  background-color: #ea00ff;
   color: white;
   font-weight: bold;
   border: none;
@@ -89,7 +89,7 @@ select:focus {
 }
 
 .btn-register:hover {
-  background-color: #03eb35;
+  background-color: #cc008f;
 }
 
 .link {
