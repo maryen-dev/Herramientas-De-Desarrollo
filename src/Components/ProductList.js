@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useCart } from "../Context/CartContext";
 function ProductList() {
     const [productos, setProductos] = useState([]);
+    const { addToCart } = useCart();
+        const handleAddToCart = (product) => {
+        addToCart(product);
+    };
     useEffect(() => {
         fetch("http://localhost:8080/productos/all")
             .then(res => res.json())
@@ -24,7 +29,7 @@ function ProductList() {
                                     <strong>Categoría:</strong> {p.productCategory?.category}
                                 </p>
                                 <h6 className="text-primary mb-3">S/. {p.productPrice.toFixed(2)}</h6>
-                                <button className="btn btn-success mt-auto">Agregar al carrito</button>
+                                <button className="btn btn-success mt-auto" onClick={() => handleAddToCart(p)}>Agregar al carrito</button>
                             </div>
                         </div>
                     </div>

@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import heroImg from './img/hero1.png';
-import orcaVideo from './img/retorno.mp4';
-import Header from './Components/Header';
-import ProductList from './Components/ProductList';
-import styles from './Estilo/UsuarioPage.css'; 
+import heroImg from '../img/hero1.png';
+import orcaVideo from '../img/retorno.mp4';
+import Header from './Header';
+import ProductList from './ProductList';
+import styles from '../Estilo/UsuarioPage.css'; 
 
 function UsuarioPage() {
   const navigate = useNavigate();
@@ -55,7 +55,7 @@ function UsuarioPage() {
               <p className="heroSubtitle">
                 Jewelry with a sea soul. Art you carry with you
               </p>
-              <a href="/Components/Catalogo">
+              <a href="/catalogo">
                 <button className="heroButton">
                   Buy now
                 </button>
@@ -64,10 +64,6 @@ function UsuarioPage() {
           </div>
         )}
       </section>
-
-      <div className="productListSection">
-        <ProductList />
-      </div>
     </div>
   );
 }
