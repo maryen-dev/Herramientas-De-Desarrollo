@@ -44,7 +44,7 @@ export default function AdminReclamos() {
       confirmButtonText: 'Confirmar',
       cancelButtonText: 'Cancelar',
       focusConfirm: false,
-      width: '600px', // hace el modal más ancho
+      width: '600px',
       padding: '30px',
       customClass: {
         popup: 'swal-modal-custom',

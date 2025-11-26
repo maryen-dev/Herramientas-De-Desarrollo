@@ -3,14 +3,19 @@ import { Routes, Route } from 'react-router-dom';
 import Register from './Components/Register';
 import Login from './Components/Login';
 import AdminPage from './Components/AdminPage';
-import UsuarioPage from './UsuarioPage';
+import UsuarioPage from './Components/UsuarioPage';
 import TermAndGrams from './Components/TermAndGrams';
 import ProtectedRoute from './Components/ProtectedRoutes';
 import Header from './Components/Header';
+import Catalogo from './Components/Catalogo';
+import Cart from "./Components/Cart";
+import Pago from "./Components/Pago";
+import Resumen from "./Components/Resumen";
 import Reclamo from './Components/Reclamo';
 import AdminReclamos from './Components/AdminReclamos';
 import VendedorPage from './Components/AdminProducts';
 import AdminUser from './Components/AdminUser';
+import AdminVentas from "./Components/AdminVentas";
 
 
 function App() {
@@ -19,6 +24,11 @@ function App() {
       <Route path="/" element={<Login />} />
       <Route path="/login" element={<Login />} />
       <Route path="/registro" element={<Register />} />
+      <Route path="/carrito" element={<Cart />} />
+      <Route path="/pago" element={<Pago />} />
+      <Route path="/resumen" element={<Resumen />} />
+      <Route path="/catalogo" element={<Catalogo />} />
+      <Route path="/admin/ventas" element={<AdminVentas />} />
       <Route path="/usuariopage" element={
         <ProtectedRoute>
           <UsuarioPage />

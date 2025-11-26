@@ -1,15 +1,13 @@
 .admin-sidebar {
   width: 220px;
-  height: 100vh;
+  min-height: 100vh;   /* ← Esto hace que mida al menos 100vh */
+  height: auto;        /* ← Esto permite que crezca si el contenido es mayor */
   background-color: #db678e;
   color: #fff;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding: 20px;
   box-sizing: border-box;
-  z-index: 1000;
-  transition: transform 0.3s ease-in-out;
 }
 
 .admin-logo {
