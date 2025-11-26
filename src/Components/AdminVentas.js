@@ -32,7 +32,7 @@ export default function AdminVentas() {
                 setLoading(false);
             });
     }, []);
-
+        /*** Filtros  ***/
     const pedidosFiltrados = pedidos.filter((p) => {
         const idPedido = p.orderId ? p.orderId.toString() : "";
         const idUsuario = p.userID ? p.userID.toString() : "";
