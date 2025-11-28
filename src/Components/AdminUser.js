@@ -23,7 +23,11 @@ const AdminUser = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await fetch(API_URL);
+      const res = await fetch(API_URL, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'omit'
+      });
       if (!res.ok) throw new Error("Error al cargar usuarios");
       const data = await res.json();
       setUsers(data);
@@ -79,6 +83,7 @@ const AdminUser = () => {
       const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'omit',
         body: JSON.stringify(formData)
       });
 
@@ -111,7 +116,7 @@ const AdminUser = () => {
     if (!result.isConfirmed) return;
 
     try {
-      const res = await fetch(`${API_URL}/${email}`, { method: "DELETE" });
+      const res = await fetch(`${API_URL}/${email}`, { method: "DELETE", credentials: 'omit' });
       if (!res.ok) throw new Error("Error al eliminar usuario");
 
       fetchUsers();
@@ -124,7 +129,7 @@ const AdminUser = () => {
 
   return (
     <div style={{ display: 'flex' }}>
-      <AdminSidebar /> {/* Sidebar del admin */}
+      <AdminSidebar /> 
       <div style={{ flex: 1, padding: '40px' }}>
         <div className="d-flex justify-content-between align-items-center mb-4">
           <h1>Administración de Usuarios</h1>
