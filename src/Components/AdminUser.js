@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AdminSidebar from './AdminSideBar'; 
 import '../Estilo/AdminReclamos.css'; 
 
-const API_URL = "http://localhost:8080/users";
+const API_URL = "https://herramientasbackend.onrender.com/users";
 
 const AdminUser = () => {
   const [users, setUsers] = useState([]);
