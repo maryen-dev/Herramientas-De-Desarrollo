@@ -7,7 +7,7 @@ function ProductList() {
         addToCart(product);
     };
     useEffect(() => {
-        fetch("http://localhost:8080/productos/all")
+        fetch("https://herramientasbackend.onrender.com/productos/all")
             .then(res => res.json())
             .then(data => setProductos(data))
             .catch((error) => console.error("Error al cargar productos:", error));

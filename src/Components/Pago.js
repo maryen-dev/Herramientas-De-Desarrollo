@@ -43,7 +43,7 @@ function Pago() {
         status: "PENDIENTE",
       };
 
-      const pedidoRes = await fetch("/pedidos/save", {
+      const pedidoRes = await fetch("https://herramientasbackend.onrender.com/pedidos/save", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(pedidoData),
@@ -65,7 +65,7 @@ function Pago() {
 
         console.log(itemData);
 
-        await fetch("/pedidoitems/save", {
+        await fetch("https://herramientasbackend.onrender.com/pedidoitems/save", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(itemData),

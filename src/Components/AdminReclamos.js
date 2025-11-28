@@ -11,7 +11,7 @@ export default function AdminReclamos() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/reclamos/all')
+    fetch('https://herramientasbackend.onrender.com/reclamos/all')
       .then(res => res.json())
       .then(data => {
         setReclamos(data);
@@ -56,7 +56,7 @@ export default function AdminReclamos() {
     }).then(result => {
       if (result.isConfirmed) {
         const { nuevoEstado } = result.value;
-        fetch(`/reclamos/update/${reclamo.idcomplaints}`, {
+        fetch(`https://herramientasbackend.onrender.com/reclamos/update/${reclamo.idcomplaints}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ claimstatus: nuevoEstado }),

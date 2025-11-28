@@ -11,7 +11,7 @@ function ProductPage() {
 
   // Cargar todos los productos del administrador
   const loadProducts = () => {
-    fetch('http://localhost:8080/productos/all')
+    fetch('https://herramientasbackend.onrender.com/productos/all')
       .then(res => res.json())
       .then(data => setProducts(data))
       .catch(err => console.error('Error cargando productos:', err));
@@ -30,7 +30,7 @@ function ProductPage() {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:8080/productos/delete/${productId}`, { method: 'DELETE' })
+        fetch(`https://herramientasbackend.onrender.com/productos/delete/${productId}`, { method: 'DELETE' })
           .then((res) => {
             if (res.ok) {
               Swal.fire('Eliminado!', 'Producto eliminado correctamente.', 'success');
@@ -45,7 +45,7 @@ function ProductPage() {
   };
 
   const handleEdit = (productId, formData) => {
-    fetch(`http://localhost:8080/productos/update/${productId}`, {
+    fetch(`https://herramientasbackend.onrender.com/productos/update/${productId}`, {
       method: 'PUT',
       body: formData,
     })
@@ -61,7 +61,7 @@ function ProductPage() {
   };
 
   const handleAddProduct = (formData) => {
-  fetch('http://localhost:8080/productos/save', {
+  fetch('https://herramientasbackend.onrender.com/productos/save', {
     method: 'POST',
     body: formData,
   })
