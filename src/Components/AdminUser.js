@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AdminSidebar from './AdminSideBar'; 
 import '../Estilo/AdminReclamos.css'; 
 
-const API_URL = "https://herramientasbackend.onrender.com/users";
+const API_URL = "/users";
 
 const AdminUser = () => {
   const [users, setUsers] = useState([]);
@@ -25,8 +25,7 @@ const AdminUser = () => {
     try {
       const res = await fetch(API_URL, {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'omit'
+        headers: { 'Content-Type': 'application/json' }
       });
       if (!res.ok) throw new Error("Error al cargar usuarios");
       const data = await res.json();
@@ -83,7 +82,6 @@ const AdminUser = () => {
       const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'omit',
         body: JSON.stringify(formData)
       });
 
@@ -116,7 +114,7 @@ const AdminUser = () => {
     if (!result.isConfirmed) return;
 
     try {
-      const res = await fetch(`${API_URL}/${email}`, { method: "DELETE", credentials: 'omit' });
+      const res = await fetch(`${API_URL}/${email}`, { method: "DELETE"});
       if (!res.ok) throw new Error("Error al eliminar usuario");
 
       fetchUsers();
