@@ -58,7 +58,7 @@ export default function Register() {
       rol: form.role,
     };
 
-    fetch('/registro', {
+    fetch('https://tu-backend.onrender.com/registro', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams(cliente),
