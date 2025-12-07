@@ -25,6 +25,7 @@ function ProductListAdmin({ products, onDelete, onEdit }) {
       productPrice: product.productPrice,
       productStock: product.productStock,
       active: product.active,
+      imageUrl: product.productImage || "",
     });
     setEditFile(null);
   };
@@ -32,7 +33,7 @@ function ProductListAdmin({ products, onDelete, onEdit }) {
   const cancelEdit = () => {
     setEditId(null);
     setEditData({});
-    setEditFile(null);
+    
   };
 
   const handleChange = (e) => {
@@ -45,14 +46,20 @@ function ProductListAdmin({ products, onDelete, onEdit }) {
 
   const saveEdit = () => {
     const formData = new FormData();
-    Object.keys(editData).forEach((key) => formData.append(key, editData[key]));
-    if (editFile) formData.append('file', editFile);
+    formData.append("productId", editData.productId);
+    formData.append("productName", editData.productName);
+    formData.append("categoryId", editData.categoryId);
+    formData.append("productDescription", editData.productDescription);
+    formData.append("productPrice", editData.productPrice);
+    formData.append("productStock", editData.productStock);
+    formData.append("active", editData.active);
+    formData.append("imageUrl", editData.imageUrl);
 
     onEdit(editData.productId, formData);
     setEditId(null);
   };
 
-  const handleFileChange = (e) => setEditFile(e.target.files[0]);
+ 
 
   return (
     <div className="container my-5">
@@ -119,9 +126,16 @@ function ProductListAdmin({ products, onDelete, onEdit }) {
                 <input type="number" name="productStock" value={editData.productStock || ''} onChange={handleChange} className="form-control" />
               </div>
               <div className="mb-3">
-                <label>Imagen (opcional):</label>
-                <input type="file" onChange={handleFileChange} className="form-control" />
-              </div>
+                  <label className="form-label">URL Imagen (opcional)</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="imageUrl"
+                    value={editData.imageUrl || ""}
+                    onChange={handleChange}
+                    placeholder="https://ejemplo.com/imagen.jpg"
+                  />
+                </div>
               <div className="form-check mb-3">
                 <input type="checkbox" name="active" checked={editData.active || false} onChange={handleChange} className="form-check-input" id="activeCheckModal" />
                 <label className="form-check-label" htmlFor="activeCheckModal">Activo</label>
