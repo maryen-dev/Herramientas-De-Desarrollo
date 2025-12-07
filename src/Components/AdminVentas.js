@@ -19,8 +19,8 @@ export default function AdminVentas() {
 
     useEffect(() => {
         Promise.all([
-            fetch("/pedidos/all").then((res) => res.json()),
-            fetch("/pedidoitems/all").then((res) => res.json()),
+            fetch("https://herramientasbackend.onrender.com/pedidos/all").then((res) => res.json()),
+            fetch("https://herramientasbackend.onrender.com/pedidoitems/all").then((res) => res.json()),
         ])
             .then(([pedidosData, itemsData]) => {
                 setPedidos(pedidosData || []);
@@ -59,7 +59,7 @@ export default function AdminVentas() {
     /*** ACTUALIZAR ESTADO ***/
     const cambiarEstado = async (orderId, nuevoEstado) => {
         try {
-            const res = await fetch(`/pedidos/${orderId}/estado?estado=${nuevoEstado}`, {
+            const res = await fetch(`https://herramientasbackend.onrender.com/pedidos/${orderId}/estado?estado=${nuevoEstado}`, {
                 method: "PUT",
             });
 

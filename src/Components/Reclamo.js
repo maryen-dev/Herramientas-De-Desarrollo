@@ -67,7 +67,7 @@ export default function Reclamo() {
 
     console.log("Reclamo a enviar:", nuevoReclamo);
 
-    fetch('http://localhost:8080/reclamos/save', {
+    fetch('https://herramientasbackend.onrender.com/reclamos/save', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(nuevoReclamo),

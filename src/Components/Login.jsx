@@ -27,11 +27,11 @@ export default function Login() {
 
         const params = new URLSearchParams({ correo: email, contraseña: password });
 
-        fetch('/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: params.toString(),
-        })
+fetch('https://herramientasbackend.onrender.com/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ correo: email, contraseña: password }),
+})
             .then(res => res.json()) 
             .then(data => {
                 if (data.status === 'ok') {

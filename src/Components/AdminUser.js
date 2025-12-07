@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AdminSidebar from './AdminSideBar'; 
 import '../Estilo/AdminReclamos.css'; 
 
-const API_URL = "http://localhost:8080/users";
+const API_URL = "https://herramientasbackend.onrender.com/users";
 
 const AdminUser = () => {
   const [users, setUsers] = useState([]);
@@ -23,7 +23,10 @@ const AdminUser = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await fetch(API_URL);
+      const res = await fetch(API_URL, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+      });
       if (!res.ok) throw new Error("Error al cargar usuarios");
       const data = await res.json();
       setUsers(data);
@@ -111,7 +114,7 @@ const AdminUser = () => {
     if (!result.isConfirmed) return;
 
     try {
-      const res = await fetch(`${API_URL}/${email}`, { method: "DELETE" });
+      const res = await fetch(`${API_URL}/${email}`, { method: "DELETE"});
       if (!res.ok) throw new Error("Error al eliminar usuario");
 
       fetchUsers();
@@ -124,7 +127,7 @@ const AdminUser = () => {
 
   return (
     <div style={{ display: 'flex' }}>
-      <AdminSidebar /> {/* Sidebar del admin */}
+      <AdminSidebar /> 
       <div style={{ flex: 1, padding: '40px' }}>
         <div className="d-flex justify-content-between align-items-center mb-4">
           <h1>Administración de Usuarios</h1>
