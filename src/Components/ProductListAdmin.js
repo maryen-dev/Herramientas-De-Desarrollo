@@ -63,18 +63,18 @@ function ProductListAdmin({ products, onDelete, onEdit }) {
 
   return (
     <div className="container my-5">
-      <h2 className="text-center mb-4 text-success">🛒 Todos los Productos</h2>
+      <h2 className="text-center mb-4 text-success">🛒 Todos los Productoss</h2>
       <div className="row">
         {products.length === 0 && <p className="text-center">No hay productos disponibles.</p>}
         {products.map((p) => (
           <div key={p.productId} className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
             <div className="card h-100 shadow-sm border-0">
-              <img
-  src={p.productImage ? `https://herramientasbackend.onrender.com/${p.productImage}` : "/default-image.jpg"}
-  className="card-img-top"
-  alt={p.productName}
-  style={{ objectFit: "cover", height: "200px" }}
-/>
+               <img
+              src={p.productImage}
+              className="card-img-top product-image"
+              alt={p.productName}
+              style={{ objectFit: "cover", height: "200px" }}
+            />
               <div className="card-body d-flex flex-column">
                 <h5 className="card-title text-dark">{p.productName}</h5>
                 <p className="card-text text-muted flex-grow-1">{p.productDescription}</p>
