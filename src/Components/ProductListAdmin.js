@@ -69,11 +69,11 @@ function ProductListAdmin({ products, onDelete, onEdit }) {
         {products.map((p) => (
           <div key={p.productId} className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
             <div className="card h-100 shadow-sm border-0">
-               <img
-                src={p.imageUrl ? p.imageUrl : '/uploads/default-image.jpg'}
+                <img
+                src={p.productImage || "/uploads/default-image.jpg"}
                 className="card-img-top"
                 alt={p.productName}
-                style={{ objectFit: 'cover', height: '200px' }}
+                style={{ objectFit: "cover", height: "200px" }}
               />
               <div className="card-body d-flex flex-column">
                 <h5 className="card-title text-dark">{p.productName}</h5>
