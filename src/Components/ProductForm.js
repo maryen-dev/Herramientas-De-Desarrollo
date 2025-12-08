@@ -16,6 +16,7 @@ function ProductForm({ onProductAdded }) {
     productPrice: '',
     productStock: '',
     active: true,
+     productImageUrl: '', 
   });
 
    const [categories, setCategories] = useState([]);
@@ -59,17 +60,18 @@ function ProductForm({ onProductAdded }) {
     productStock: parseInt(formData.productStock),
     active: formData.active,
     vendedorId: vendedorId,
+    productImage: formData.productImageUrl, 
   };
 
   const formDataToSend = new FormData();
   formDataToSend.append(
-    "product",
+    'product',
     new Blob([JSON.stringify(productData)], { type: "application/json" })
   );
 
-  if (formData.productImageFile) {
-    formDataToSend.append("image", formData.productImageFile);
-  }
+   if (formData.productImageUrl) {
+      formDataToSend.append('imageUrl', formData.productImageUrl);
+    }
 
   try {
     const response = await fetch("https://herramientasbackend.onrender.com/productos/save", {
@@ -92,7 +94,7 @@ function ProductForm({ onProductAdded }) {
         productPrice: "",
         productStock: "",
         active: true,
-        productImageFile: null,
+        productImageUrl: "",
       });
 
       if (onProductAdded) onProductAdded();
@@ -205,16 +207,21 @@ function ProductForm({ onProductAdded }) {
                 />
               </div>
 
-                  <div className="mb-3">
-          <label htmlFor="productImage" className="form-label">Imagen del producto</label>
-         <input
-               type="file"
-         className="form-control"
-           id="productImage"
-           name="productImage"
-           onChange={(e) => setFormData({ ...formData, productImageFile: e.target.files[0] })}
-           />
-         </div>
+                   <div className="mb-3">
+                <label htmlFor="productImageUrl" className="form-label">
+                  URL de la imagen
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="productImageUrl"
+                  name="productImageUrl"
+                  value={formData.productImageUrl}
+                  onChange={handleChange}
+                  placeholder="Ingresa la URL de la imagen"
+                />
+              </div>
+
 
               <div className="col-md-4 d-flex align-items-center mb-3">
                 <div className="form-check mt-3">
@@ -248,6 +255,7 @@ function ProductForm({ onProductAdded }) {
                     productPrice: '',
                     productStock: '',
                     active: true,
+                    productImageUrl: '',
                   })
                 }
               >
