@@ -633,9 +633,7 @@ En GitHub se configuró el secret:
 
 ---
 
-Aquí tienes todo tu contenido formateado correctamente en **Markdown**, listo para pegar directamente en tu README sin modificaciones:
 
-````markdown
 ## 🐳 Docker y Contenedores
 
 ### ¿Qué es Docker?
@@ -669,7 +667,7 @@ Un **Dockerfile** es un archivo de texto que contiene instrucciones para constru
 
 ---
 
-### 📝 Implementación del Dockerfile
+### Implementación del Dockerfile
 
 En este proyecto se implementa un Dockerfile para containerizar el frontend en React + Vite.
 
