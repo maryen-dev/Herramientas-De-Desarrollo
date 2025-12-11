@@ -633,6 +633,343 @@ En GitHub se configuró el secret:
 
 ---
 
+Aquí tienes todo tu contenido formateado correctamente en **Markdown**, listo para pegar directamente en tu README sin modificaciones:
+
+````markdown
+## 🐳 Docker y Contenedores
+
+### ¿Qué es Docker?
+
+**Docker** es una plataforma de código abierto que permite automatizar el despliegue de aplicaciones dentro de contenedores de software. Proporciona una capa adicional de abstracción y automatización de virtualización a nivel de sistema operativo.
+
+**Características principales:**
+- ✅ Portabilidad entre diferentes entornos  
+- ✅ Aislamiento de aplicaciones  
+- ✅ Eficiencia en el uso de recursos  
+- ✅ Facilita el despliegue y escalabilidad  
+- ✅ Garantiza que la aplicación funcione igual en desarrollo, pruebas y producción  
+
+---
+
+### ¿Qué es un Dockerfile?
+
+Un **Dockerfile** es un archivo de texto que contiene instrucciones para construir automáticamente una imagen Docker. Es una “receta” que define:
+
+- 📦 La imagen base  
+- 📂 Archivos a copiar  
+- 🔧 Dependencias  
+- ⚙️ Comandos de configuración  
+- 🚀 Comando de inicio de la aplicación  
+
+**Beneficios:**
+- **Reproducibilidad**  
+- **Versionado en Git**  
+- **Documentación del entorno**  
+- **Automatización del despliegue**  
+
+---
+
+### 📝 Implementación del Dockerfile
+
+En este proyecto se implementa un Dockerfile para containerizar el frontend en React + Vite.
+
+#### Dockerfile del Frontend
+
+```dockerfile
+# Etapa 1: Build de la aplicación
+FROM node:18-alpine AS build
+
+# Establecer el directorio de trabajo
+WORKDIR /app
+
+# Copiar archivos de dependencias
+COPY package*.json ./
+
+# Instalar dependencias
+RUN npm ci --only=production
+
+# Copiar el resto del código fuente
+COPY . .
+
+# Construir la aplicación para producción
+RUN npm run build
+
+# Etapa 2: Servir la aplicación con nginx
+FROM nginx:alpine
+
+# Copiar los archivos construidos desde la etapa anterior
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Copiar configuración personalizada de nginx (si existe)
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Exponer el puerto 80
+EXPOSE 80
+
+# Comando para iniciar nginx
+CMD ["nginx", "-g", "daemon off;"]
+````
+
+#### Explicación del Dockerfile
+
+* **FROM node:18-alpine AS build** → Imagen base para la etapa de build
+* **WORKDIR /app** → Directorio de trabajo
+* **COPY package*.json ./** → Optimización de caché
+* **RUN npm ci --only=production** → Instalación limpia
+* **COPY . .** → Copia de código fuente
+* **RUN npm run build** → Generación de archivos estáticos
+* **FROM nginx:alpine** → Etapa final de producción
+* **COPY --from=build /app/dist /usr/share/nginx/html** → Servir archivos con Nginx
+* **EXPOSE 80** → Puerto expuesto
+* **CMD ["nginx", "-g", "daemon off;"]** → Inicio del servidor
+
+---
+
+### 🧪 Pruebas del Dockerfile
+
+#### 1. Construcción de la Imagen
+
+```bash
+docker build -t joyeria-marly:v1.0.0 .
+docker images
+```
+
+**Salida esperada:**
+
+```
+REPOSITORY        TAG       IMAGE ID       CREATED          SIZE
+joyeria-marly     v1.0.0    abc123def456   2 minutes ago    45.2MB
+```
+
+#### 2. Ejecución del Contenedor
+
+```bash
+docker run -d -p 8080:80 --name joyeria-app joyeria-marly:v1.0.0
+docker ps
+```
+
+#### 3. Verificación de Funcionamiento
+
+```bash
+docker logs joyeria-app
+# Acceder desde navegador en: http://localhost:8080
+```
+
+#### 4. Comandos Útiles
+
+```bash
+docker stop joyeria-app
+docker start joyeria-app
+docker exec -it joyeria-app sh
+docker rm joyeria-app
+docker rmi joyeria-marly:v1.0.0
+```
+
+---
+
+### 📦 ¿Qué son los Contenedores?
+
+Un **contenedor** empaqueta código y dependencias para ejecutar aplicaciones de forma consistente en cualquier entorno.
+
+**Características:**
+
+* Ligeros
+* Portables
+* Aislados
+* Eficientes
+
+**Contenedores vs Máquinas Virtuales**
+
+| Aspecto      | Contenedores | Máquinas Virtuales |
+| ------------ | ------------ | ------------------ |
+| Tamaño       | MB           | GB                 |
+| Inicio       | Segundos     | Minutos            |
+| Aislamiento  | Procesos     | Sistema Operativo  |
+| Kernel       | Comparte     | Independiente      |
+| Portabilidad | Alta         | Media              |
+
+---
+
+### 🚀 Implementación de Contenedores
+
+#### 1. Containerización del Frontend
+
+El contenedor:
+
+* Construye el proyecto
+* Usa Nginx para servirlo
+* Expone el puerto 80
+* Es totalmente portable
+
+#### 2. Publicación en GHCR (GitHub Container Registry)
+
+Workflow de GitHub Actions:
+
+```yaml
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Log in to GitHub Container Registry
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        push: true
+        tags: ghcr.io/${{ github.repository }}/joyeria-marly:latest
+```
+
+**Imagen publicada:**
+
+```
+ghcr.io/maryenaguilar/herramientas-de-desarrollo/joyeria-marly:latest
+```
+
+#### 3. Despliegue en Render
+
+Render:
+
+1. Detecta el Dockerfile
+2. Construye la imagen
+3. Despliega el contenedor
+4. Asigna URL pública
+
+---
+
+### 🧪 Pruebas de Contenedores
+
+#### Prueba 1: Build Local
+
+```bash
+docker build -t joyeria-marly:test .
+docker images | grep joyeria-marly
+```
+
+#### Prueba 2: Ejecución Local
+
+```bash
+docker run -d -p 3000:80 --name test-app joyeria-marly:test
+curl http://localhost:3000
+```
+
+#### Prueba 3: Inspección
+
+```bash
+docker inspect test-app
+docker logs -f test-app
+docker stats test-app
+```
+
+#### Prueba 4: Health Check
+
+```bash
+docker ps --filter "name=test-app"
+curl -f http://localhost:3000 || echo "La aplicación no responde"
+```
+
+#### Prueba 5: Multi-Container (Docker Compose)
+
+```yaml
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+  
+  backend:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=mysql
+  
+  mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=joyeriaBD
+```
+
+```bash
+docker-compose up -d
+docker-compose ps
+docker-compose logs -f
+```
+
+---
+
+### 📊 Ventajas de Esta Implementación
+
+#### Multi-Stage Build
+
+* Reduce tamaño final
+* Imagen final ~45MB
+
+#### Optimización de Caché
+
+* Builds más rápidos
+
+#### Producción-Ready
+
+* Nginx
+* Archivos optimizados
+* GZIP habilitado
+
+#### Portabilidad
+
+* Misma ejecución en cualquier entorno
+
+---
+
+### 🔄 Flujo Completo: Código → Contenedor → Producción
+
+```
+1. Push a main
+2. GitHub Actions se activa
+3. Corre pruebas
+4. Build de imagen Docker
+5. Push a GHCR
+6. Render recibe notificación
+7. Render hace pull de imagen
+8. Render despliega contenedor
+9. Aplicación en producción
+```
+
+---
+
+### 🎯 Conclusión
+
+La adopción de Docker ha permitido:
+
+* Automatizar despliegues
+* Asegurar consistencia entre entornos
+* Reducir tiempos de release
+* Evitar errores de configuración
+* Mejorar la escalabilidad
+* Facilitar la colaboración
+
+---
+
 # 🖼️ Capturas de Pantalla
 
 ### 🏠 Pantalla Principal
